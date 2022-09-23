@@ -1,0 +1,41 @@
+nav {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    background-color: rgb(236, 235, 235);
+    margin-top: -5px;
+}
+div {
+    display: flex;
+    margin-top: 5px;
+}
+.marca{
+    margin-left: -150px ;
+    font-size: 13px;
+
+}
+.logo{
+    width: 90px;
+    height: 60px;
+}
+/* .carrito{
+
+} */
+.productos{
+    margin-top: 150px;
+    margin-left: -30vh;
+    align-items: center;
+
+}
+.productos button{
+    margin: 15px 55px;
+    padding: 5px;
+    height: 55px;
+    width: 215px;
+    align-items: center;
+    background-color: rgba(44, 216, 44, 0.658);
+    border: 0;
+    border-radius:28px;
+    color: white;
+    font-size: 19px;
+}
