@@ -38,5 +38,7 @@ div {
     border-radius:28px;
     color: white;
     font-size: 19px;
-
+}
+.productos button:hover{
+    scale: 1.2;
 }
