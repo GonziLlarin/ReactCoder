@@ -1,44 +1,25 @@
 nav {
     display: flex;
     flex-direction: row;
-    justify-content: space-around;
+    justify-content: space-between;
     background-color: rgb(236, 235, 235);
     margin-top: -5px;
+    border-bottom: 1.5px solid rgba(128, 127, 127, 0.541);
+
 }
 div {
     display: flex;
-    margin-top: 5px;
 }
 .marca{
-    margin-left: -150px ;
+    padding: 5px;
+    margin:auto 10px;
     font-size: 13px;
-
 }
 .logo{
     width: 90px;
     height: 60px;
 }
-/* .carrito{
-
-} */
-.productos{
-    margin-top: 150px;
-    margin-left: -30vh;
-    align-items: center;
-
-}
-.productos button{
-    margin: 15px 55px;
-    padding: 5px;
-    height: 55px;
-    width: 215px;
-    align-items: center;
-    background-color: rgba(44, 216, 44, 0.658);
-    border: 0;
-    border-radius:28px;
-    color: white;
-    font-size: 19px;
-}
-.productos button:hover{
-    scale: 1.2;
+.carrito{
+    margin: auto 20px;
+    scale: 0.8;
 }
