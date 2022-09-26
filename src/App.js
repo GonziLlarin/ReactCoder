@@ -8,8 +8,12 @@ function App() {
     <div className="App">
       <NavBar />
       <div className='BotonesProd'>
-        <Button label='Productos'/>
-        <Button label='Promos'/>
+        <Button>
+          Productos
+        </Button>
+        <Button style={{backgroundColor: 'black'}}>
+          Promos
+        </Button>
       </div>
       <ItemListContainer greeting={'Bienvenidos'}/>
     </div>
