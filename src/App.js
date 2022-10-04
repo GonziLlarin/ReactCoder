@@ -2,6 +2,7 @@ import './App.css';
 import NavBar from './componentes/NavBar/NavBar';
 import ItemListContainer from './componentes/ItemListContainer/ItemListContainer';
 import Button from './componentes/Button/Button';
+// import Contador from './componentes/Contador/Contador';
 
 function App() {
   return (
@@ -15,9 +16,11 @@ function App() {
           Promos
         </Button>
       </div>
-      <ItemListContainer greeting={'Bienvenidos'}/>
+      <ItemListContainer className="ItemListContainer" greeting={'Listado De Productos'}/>
+      {/* <Contador /> */}
     </div>
   );
+  
 }
 
 export default App;

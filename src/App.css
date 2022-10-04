@@ -11,3 +11,9 @@
   border-bottom: 1.5px solid rgba(128, 127, 127, 0.541);
   padding: 35px;
 }
+.ItemListContainer{
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;  
+}
