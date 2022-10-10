@@ -28,10 +28,53 @@ const products = [
     }
 ]
 
+// export const getProducts = () => {
+//     return new Promise ((resolve)=>{
+//         setTimeout(()=>{
+//             resolve(products)
+//         }, 500)
+//     })
+// }
+
+// export const getProductsById = (id) => {
+//     return new Promise (resolve=>{
+//         setTimeout(()=>{
+//             resolve(products.find(prod => {
+//                 return prod.id === id
+//             }))
+//         }, 500)
+//     })
+// }
+
+// export const getProductsByCategory = (categoryId) => {
+//     return new Promise (resolve =>{
+//         setTimeout(()=>{
+//             resolve(products.filter(prod => prod.category === categoryId ))
+//         }, 500)
+//     })
+// }
 export const getProducts = () => {
-    return new Promise ((resolve)=>{
-        setTimeout(()=>{
+    return new Promise((resolve) => {
+        setTimeout(() => {
             resolve(products)
-        }, 1000)
+        }, 500)
+    })
+}
+
+export const getProductById = (id) => {
+    return new Promise (resolve => {
+        setTimeout(() => {
+            resolve(products.find(prod => {
+                return prod.id === id
+            }))
+        }, 500)
+    })
+}
+
+export const getProductsByCategory = (categoryId) => {
+    return new Promise (resolve => {
+        setTimeout(() => {
+            resolve(products.filter(prod => prod.category === categoryId))
+        }, 500)
     })
 }

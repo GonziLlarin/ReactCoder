@@ -1,16 +1,48 @@
-import './Item.css'
-// import Contador from '../Contador/Contador'
+// import './Item.css'
+// // import Contador from '../Contador/Contador'
+// import { Link } from 'react-router-dom'
 
-const Item =( { img, name, category, price }) => {
+
+
+// const Item =( { id, img, name, category, price}) => {
+
+//     return (
+//         <div className="Card">            
+//             <img src={img} alt={name} />
+//             <h1> {name}</h1>
+//             <h2> {category} </h2>
+//             <p> ${price} </p>
+//             <Link to={`/detail/${id}`}>Ver detalle</Link>
+//             {/* <Contador className="ContadorItem" /> */}
+//         </div>
+//     )
+// }
+
+// export default Item
+import './Item.css'
+import { Link } from 'react-router-dom'
+
+const Item = ({id, name, img, price }) => {
 
     return (
-        <div className="Card">            
-            <img src={img} alt={name} />
-            <h1> {name} </h1>
-            <h2> {category} </h2>
-            <p> ${price} </p>
-            {/* <Contador className="ContadorItem" /> */}
-        </div>
+        <article >
+            <header>
+                <h2 className="ItemHeader">
+                    {name}
+                </h2>
+            </header>
+            <picture>
+                <img src={img} alt={name} className="ItemImg"/>
+            </picture>
+            <section>
+                <p className="Info">
+                    Precio: ${price}
+                </p>
+            </section>           
+            <footer className='ItemFooter'>
+                <Link to={`/detail/${id}`}>Ver detalle</Link>
+            </footer>
+        </article>
     )
 }
 
