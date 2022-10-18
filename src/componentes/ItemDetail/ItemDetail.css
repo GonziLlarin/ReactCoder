@@ -1,7 +1,13 @@
-.ItemDetail{
+.ItemDetail {
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
     width: 100%;
+}
+.ItemFooter{
+    display: flex;
+    flex-direction: row;
+    width: 100vh;
+    scale: 0.6;
 }

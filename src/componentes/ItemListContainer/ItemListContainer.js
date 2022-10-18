@@ -8,7 +8,6 @@ const ItemListContainer = ({ greeting }) => {
     const [products, setProducts] = useState([])
     const [loading, setLoading] = useState(true)
 
-
     const {categoryId} = useParams()
 
     useEffect(()=> {

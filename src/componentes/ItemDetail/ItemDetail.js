@@ -24,7 +24,7 @@ const ItemDetail = ({ id, name, img, category, description, price, stock }) => {
     }
 
     return (
-        <article className="CardItem">
+        <article className="ItemDetail">
             <header className="Header">
                 <h2 className="ItemHeader">
                     {name}
@@ -34,9 +34,7 @@ const ItemDetail = ({ id, name, img, category, description, price, stock }) => {
                 <img src={img} alt={name} className="ItemImg"/>
             </picture>
             <section>
-                <p className="Info">
-                    Categoria: {category}
-                </p>
+                
                 <p className="Info">
                     Descripción: {description}
                 </p>
