@@ -1,44 +1,34 @@
-// import './ItemDetail.css'
-
-// const ItemDetail = ({ img, name, category, price }) =>{
-
-//     return (
-//         <div className='ItemDetail'>
-//             <img src={img} alt={name} style={{widht: 100}} />
-//             <h2>{name}</h2>
-//             <p>Price:{price} </p>
-//         </div>
-//     )
-// }
-
-// export default ItemDetail
 import './ItemDetail.css'
 import ItemCount from '../ItemCount/ItemCount'
+import { useContext } from 'react'
+import { CartContext } from '../../context/CartContext'
 
-const ItemDetail = ({ id, name, img, category, description, price, stock }) => {
+const ItemDetail = ({ id, name, img, description, price, stock}) => {
+    
+    const { addItem } = useContext(CartContext)
+
     const handleOnAdd = (quantity) => {
         const productToAdd = {
             id, name, price, quantity
         }
-        console.log(productToAdd)
+        addItem( productToAdd )
     }
 
     return (
         <article className="ItemDetail">
-            <header className="Header">
-                <h2 className="ItemHeader">
+            <header>
+                <h2>
                     {name}
                 </h2>
-            </header>
+            </header>  
             <picture>
                 <img src={img} alt={name} className="ItemImg"/>
             </picture>
             <section>
-                
-                <p className="Info">
+                <p>
                     Descripción: {description}
                 </p>
-                <p className="Info">
+                <p>
                     Precio: {price}
                 </p>
             </section>           

@@ -22,4 +22,5 @@ img {
     flex-direction: column;
     justify-content: center;
     text-decoration: none;
+    font-size: 25px;
 }

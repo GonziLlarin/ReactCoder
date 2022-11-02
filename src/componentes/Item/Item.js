@@ -1,24 +1,3 @@
-// import './Item.css'
-// // import Contador from '../Contador/Contador'
-// import { Link } from 'react-router-dom'
-
-
-
-// const Item =( { id, img, name, category, price}) => {
-
-//     return (
-//         <div className="Card">            
-//             <img src={img} alt={name} />
-//             <h1> {name}</h1>
-//             <h2> {category} </h2>
-//             <p> ${price} </p>
-//             <Link to={`/detail/${id}`}>Ver detalle</Link>
-//             {/* <Contador className="ContadorItem" /> */}
-//         </div>
-//     )
-// }
-
-// export default Item
 import './Item.css'
 import { Link } from 'react-router-dom'
 
@@ -27,7 +6,7 @@ const Item = ({id, name, img, price }) => {
     return (
         <article className='Card'>
             <header>
-                <h2 className="ItemHeader">
+                <h2>
                     {name}
                 </h2>
             </header>
@@ -35,7 +14,7 @@ const Item = ({id, name, img, price }) => {
                 <img src={img} alt={name} className="ItemImg"/>
             </picture>
             <section>
-                <p className="Info">
+                <p>
                     Precio: ${price}
                 </p>
             </section>           
