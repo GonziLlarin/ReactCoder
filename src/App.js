@@ -5,24 +5,26 @@ import ItemDetailContainer from './componentes/ItemDetailContainer/ItemDetailCon
 import ButtonList from './componentes/ButtonList/ButtonList';
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
 import { CartProvider } from './context/CartContext'
-
+import { NotificationProvider} from './notification/NotificationService'
 
 function App() {
 
   return ( 
-    <div className="App"> 
-      <CartProvider>
-        <BrowserRouter> 
-            <NavBar />
-            <ButtonList />
-            <Routes>
-              <Route path='/' element={<ItemListContainer className="ItemListContainer" greeting={'Listado De Productos'}/>}/> 
-              <Route path='/category/:categoryId' element={<ItemListContainer />}/> 
-              <Route path='/detail/:productId' element={ <ItemDetailContainer />}/>
-              <Route path='*' element={<h1>Error 404</h1>}/> 
-            </Routes> 
-        </BrowserRouter>
-      </CartProvider>
+    <div className="App">
+      <NotificationProvider>
+        <CartProvider>
+          <BrowserRouter> 
+              <NavBar />
+              <ButtonList />
+              <Routes>
+                <Route path='/' element={<ItemListContainer className="ItemListContainer" greeting={'Listado De Productos'}/>}/> 
+                <Route path='/category/:categoryId' element={<ItemListContainer />}/> 
+                <Route path='/detail/:productId' element={ <ItemDetailContainer />}/>
+                <Route path='*' element={<h1>Error 404</h1>}/> 
+              </Routes> 
+          </BrowserRouter>
+        </CartProvider>
+      </NotificationProvider> 
     </div> 
 ); 
 }
