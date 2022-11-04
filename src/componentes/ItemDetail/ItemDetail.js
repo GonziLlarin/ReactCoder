@@ -2,13 +2,13 @@ import './ItemDetail.css'
 import ItemCount from '../ItemCount/ItemCount'
 import { useContext } from 'react'
 import { CartContext } from '../../context/CartContext'
-import { NotificationContext } from '../../notification/NotificationService'
+
 
 
 const ItemDetail = ({ id, name, img, description, price, stock}) => {
     
     const { addItem } = useContext(CartContext)
-    const { setNotification } = useContext(NotificationContext)
+
 
     const handleOnAdd = (quantity, stock) => {
         const productToAdd = {
