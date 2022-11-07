@@ -1,103 +1,117 @@
 import './CheckOut.css'
-import { useState, useContext } from "react"
-import { CartContext } from "../../CartContext/CartContext"
-import { useNavigate } from "react-router-dom"
-import ClientForm from '../Form/Form'
-import Swal from "sweetalert2";
-import { DotSpinner } from '@uiball/loaders'
-import {useOrders} from "../../services/firestore/orders"
+import { useContext , useState } from 'react'
+import { CartContext} from "../../context/CartContext"
+import { addDoc, collection, getDocs, query, where, documentId, writeBatch} from 'firebase/firestore'
+import { db } from '../../services/firebase/index'
+import { NotificationContext } from '../../notification/NotificationService'
+import { useNavigate } from  "react-router-dom"
+import Form from '../Form/Form'
 
-
-const CheckOut=()=>{
-
-    const {clearCart} = useContext(CartContext)
-
+const CheckOut = ()=> {
+    const { cart,total, clearCart } = useContext(CartContext)
+    const { setNotification } = useContext(NotificationContext)
+    const [ loading, setLoading ]= useState(false) 
     const [personalData, setPersonalData] = useState(false)
 
-    const [orderData, setOrderData] = useState()
+    const navigate = useNavigate()
 
-    const DataCompleted = (declaredName, declaredAddress, declaredPhone, declaredEmail) =>{
-        
-        setOrderData({declaredName, declaredAddress, declaredPhone, declaredEmail})
-        
+    const [datosComprador, setDatosComprador] = useState({}) 
+
+    const completarDatos = (name, surname, address, phone, email) =>{
+        setDatosComprador({name, surname, address, phone, email})
         setPersonalData(true)
     }
     
-    const [loading, setLoading] = useState(false)
-    
-    const navigate = useNavigate ()
-    
-    const { createOrder } = useOrders()
-
-    const getOrder =()=>{    
-        
+    const createOrder = async () => {
         setLoading(true)
+        try {
+            const objOrder = {
+                buyer: datosComprador,
+                items: cart,
+                total: total
+        }
 
-        createOrder(orderData).then(response => {
-            if(response.result === 'orderCreated') {
+            const batch = writeBatch(db)
+
+            const outOfStock = []
+
+            const ids = cart.map(prod => prod.id)
+            const productsRef = collection(db,'products')
+
+            const productsAddedFromFirestore = await getDocs(query(productsRef, where(documentId(), 'in', ids)))
+            
+            const { docs } = productsAddedFromFirestore
+
+            docs.forEach( doc => {
+
+                const dataDoc = doc.data()
+                const stockDb = dataDoc.stock
+
+                const productsAddedToCart = cart.find(prod => prod.id === doc.id)
+
+                const prodQuantity = productsAddedToCart?.quantity
+                if(stockDb >= prodQuantity){
+                    batch.update(doc.ref, { stock: stockDb - prodQuantity})
+                } else {
+                    outOfStock.push({ id: doc.id, ...dataDoc})
+                }
+            })
+
+            if(outOfStock.length === 0){
+                await batch.commit()
+                const orderRef = collection(db, 'orders')
+
+                const orderAdded = await addDoc(orderRef, objOrder)
+
                 clearCart()
 
-                Swal.fire({
-                    title:"COMPRA REALIZADA CON ÉXITO",
-                    text:`Enviamos el código de compra "${response.id}" 
-                    a 
-                    ${orderData.declaredEmail}`,
-                    icon: false,
-                    buttons: true,
-                    dangerMode: true,
-                    timer:6000,
-                    customClass:"swAlert"
-                })
-        
-                navigate ('/')
-            }else{
-                Swal.fire({
-                    title:"ERROR",
-                    text:`Uno de los productos seleccionados ya no está en stock`,
-                    icon: false,
-                    buttons: true,
-                    dangerMode: true,
-                    timer:6000,
-                    customClass:"swAlert"
-                })
-                navigate ('/cart')
+                setTimeout(()=> {
+                    navigate('/')
+                }, 3000)
+
+                setNotification('success',`El número de su orden es : ${orderAdded.id}`)
+            } else {
+                setNotification('error','Hay productos que no tienen stock')
             }
-        }).catch(error => {
-            Swal.fire({
-                title:`${error}`,
-                icon: false,
-                buttons: true,
-                dangerMode: true,
-                timer:6000,
-                customClass:"swAlert"
-            })
-        }).finally(() => {
+        } catch(error) {
+            setNotification('error','Ha sucedido un error')
+        } finally{
             setLoading(false)
-        })
-    }
+        }
+}
 
-if (loading){
-
+if(loading) {
+    return <h1> Se esta generando su orden</h1>
+}
     return (
-        <div>
-    <div className="DotSpinner"><DotSpinner
-        size={80}
-        speed={0.9} 
-        color="black" 
-        /></div><h1>Chequeando stock...</h1>
+        <div className='CheckOut'>
+            <h1>Completa los datos para generar la orden</h1>
+            <Form completoDatos={completarDatos} />
+            { personalData ? <buton onClick={createOrder}> Generar Orden</buton>:""}
+            {/* <form>
+                <label>
+                    Nombre y Apellido:
+                    <input type='text' value={name} onChange={(e)=> setName(e.target.value)} placeholder="Nombre y Apellido"> Nombre y Apellido</input>
+                </label>
+                <label>
+                    Número de teléfono:
+                    <input type='number' value={number} onChange={(e)=> setNumber(e.target.value)} placeholder="Número de teléfono"> Teléfono</input>
+                </label>
+                <label>
+                    Correo electrónico:
+                    <input type='email' value={email} onChange={(e)=> setEmail(e.target.value)} placeholder="Email"> Correo electrónico</input>
+                </label>
+            </form> */}
+            {/* <button onClick={createOrder}>Generar Orden</button> */}
         </div>
     )
 }
 
-return (
-
-    <div>
-        <h1>COMPLETÁ TUS DATOS</h1>
-        <ClientForm DataCompleted={DataCompleted}/>
-            { personalData?<button className="comprarBtn" type="submit" onClick={getOrder}>CONFIRMAR COMPRA</button>
-        : ""}
-    </div>
-)
-}
-
 export default CheckOut
+
+
+
+//         <h1>COMPLETÁ TUS DATOS</h1>
+//         <ClientForm DataCompleted={DataCompleted}/>
+//             { personalData?<button className="comprarBtn" type="submit" onClick={getOrder}>CONFIRMAR COMPRA</button>
+//         : ""}

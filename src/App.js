@@ -7,6 +7,7 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom'
 import { CartProvider } from './context/CartContext'
 import { NotificationProvider} from './notification/NotificationService'
 import Cart from './componentes/Cart/Cart';
+import CheckOut from './componentes/CheckOut/CheckOut';
 
 function App() {
 
@@ -22,6 +23,7 @@ function App() {
                 <Route path='/category/:categoryId' element={<ItemListContainer />}/> 
                 <Route path='/detail/:productId' element={ <ItemDetailContainer />}/>
                 <Route path='/cart' element={<Cart />}/>
+                <Route path='/checkout' element={<CheckOut />}/>
                 <Route path='*' element={<h1>Error 404</h1>}/> 
               </Routes> 
           </BrowserRouter>

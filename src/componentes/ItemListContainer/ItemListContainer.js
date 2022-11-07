@@ -1,13 +1,15 @@
 import './ItemListContainer.css'
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
 import ItemList from "../ItemList/ItemList";
-import {useParams} from 'react-router-dom'
+import { useParams } from 'react-router-dom'
 import { getDocs, collection, query, where} from 'firebase/firestore';
 import { db } from '../../services/firebase';
+import { NotificationContext } from '../../notification/NotificationService';
 
 const ItemListContainer = ({ greeting }) => {
     const [products, setProducts] = useState([])
     const [loading, setLoading] = useState(true)
+    const { setNotification } = useContext(NotificationContext)
 
     const { categoryId } = useParams()
 
@@ -27,11 +29,11 @@ const ItemListContainer = ({ greeting }) => {
 
             setProducts(productsAdapted)
         }).catch(error =>{
-            console.log(error)
+            setNotification('error','Oh oh , ha ocurrido un error')
         }).finally(() => {
             setLoading(false)
         })
-    }, [categoryId])
+    }, [categoryId]) 
 
     if(loading) {
         return  <p>Loading...</p>

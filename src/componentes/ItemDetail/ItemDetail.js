@@ -6,7 +6,7 @@ import { NotificationContext }  from '../../notification/NotificationService'
 
 const ItemDetail = ({ id, name, img, description, price, stock}) => {
     
-    const { addItem, isInCart, getProductQuantity } = useContext(CartContext)
+    const { addItem, getProductQuantity } = useContext(CartContext)
     const { setNotification } = useContext(NotificationContext)
 
     const handleOnAdd = (quantity) => {
@@ -31,8 +31,8 @@ const ItemDetail = ({ id, name, img, description, price, stock}) => {
                 <p>Precio: {price}</p>
             </section>           
             <footer className='ItemFooter'>
-                <ItemCount onAdd={handleOnAdd} stock={stock} initial={quantityAdded}/>
-            </footer>
+                { stock !== 0 ? <ItemCount onAdd={handleOnAdd} stock={stock} initial={quantityAdded}/> : <p>No hay stock</p>}
+            </footer> 
         </article>
     )
 }
