@@ -87,7 +87,7 @@ if(loading) {
         <div className='CheckOut'>
             <h1>Completa los datos para generar la orden</h1>
             <Form completoDatos={completarDatos} />
-            { personalData ? <buton onClick={createOrder}> Generar Orden</buton>:""}
+            { personalData ? <button style={{backgroundColor:'black'}}onClick={createOrder}> Generar Orden</button>:""}
             {/* <form>
                 <label>
                     Nombre y Apellido:

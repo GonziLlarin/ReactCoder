@@ -1,3 +1,4 @@
+import './Form.css'
 import { useState, createContext } from "react";
 import Swal from "sweetalert2";
 
@@ -53,20 +54,35 @@ const submit = (e) => {
     }
 }
 
-
-
     return (
-        <form>
-
-            <div className='myForm1' >
-                <input  value={name} onChange={(e) => setName(e.target.value)} type="text"   className="form-input"   placeholder="Nombre" required />
-                <input  value={surname} onChange={(e) => setSurname(e.target.value)} type="text"   className="form-input"   placeholder="Apellido" required/>
-                <input value={address}onChange={(e) => setAddress(e.target.value)}type="text"   className="form-input"   placeholder="Dirección"required />
-                <input value={email} onChange={(e) => setEmail(e.target.value)} type="email"  className="form-input"   placeholder="Email" required/>
-                <input value={checkEmail} onChange={(e) => setCheckEmail(e.target.value)} type="Confirme Email"  className="form-input"   placeholder="Email" required/>
-                <input value={phone}onChange={(e) => setPhone(e.target.value)} type="number" className="form-input"   placeholder="Teléfono"required />
+        <form className="FormContainer">
+            <div className='Form' >
+                <label>
+                    Nombre:
+                    <input value={name} onChange={(e) => setName(e.target.value)} type="text"   className="form-input"   placeholder="Nombre" required />
+                </label>
+                <label>
+                    Apellido:
+                    <input value={surname} onChange={(e) => setSurname(e.target.value)} type="text"   className="form-input"   placeholder="Apellido" required/>
+                </label>
+                <label>
+                    Dirección:
+                    <input value={address}onChange={(e) => setAddress(e.target.value)}type="text"   className="form-input"   placeholder="Dirección"required />
+                </label>
+                <label>
+                    Email:
+                    <input value={email} onChange={(e) => setEmail(e.target.value)} type="email"  className="form-input"   placeholder="Email" required/>
+                </label>
+                <label>
+                    Confirmá tu email:
+                    <input value={checkEmail} onChange={(e) => setCheckEmail(e.target.value)} type="email"  className="form-input"   placeholder="Email" required/>
+                </label>
+                <label>
+                    Teléfono:
+                    <input value={phone}onChange={(e) => setPhone(e.target.value)} type="number" className="form-input"   placeholder="Teléfono"required />
+                </label>
             </div>
-            <button onClick = {submit}> Submit Data</button>
+            <button onClick = {submit}> Confirmar compra</button>
             
         </form>
 )
